@@ -1,0 +1,67 @@
+{
+  "customer": [
+    {
+      "name": "Anh",
+      "details": "asd",
+      "gender": "female",
+      "rating": 4,
+      "id": 2
+    },
+    {
+      "name": "Dinh",
+      "details": "21",
+      "gender": "male",
+      "rating": 4,
+      "id": 3
+    },
+    {
+      "name": "Phuc",
+      "details": "21",
+      "gender": "male",
+      "rating": 5,
+      "id": 4
+    },
+    {
+      "name": "Trung",
+      "details": "13",
+      "gender": "male",
+      "rating": 5,
+      "id": 5
+    },
+    {
+      "name": "Khanh",
+      "details": "21",
+      "gender": "male",
+      "rating": 5,
+      "id": 6
+    },
+    {
+      "name": "Kien",
+      "details": "asd",
+      "gender": "female",
+      "rating": 5,
+      "id": 7
+    },
+    {
+      "name": "Hoang",
+      "details": "123",
+      "gender": "male",
+      "rating": 5,
+      "id": 8
+    },
+    {
+      "name": "Toan",
+      "details": "123",
+      "gender": "male",
+      "rating": 5,
+      "id": 9
+    },
+    {
+      "name": "Dung",
+      "details": "123",
+      "gender": "female",
+      "rating": 5,
+      "id": 10
+    }
+  ]
+}
