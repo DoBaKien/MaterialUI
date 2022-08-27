@@ -14,13 +14,13 @@ export const UserProvider =({children})=>{
         fetchData()
     }, [])
 
-    const createCustomer = async({name, details, gender, rating})=>{
+    const createCustomer = async({name, details, gender, rating, preview})=>{
         const response= await fetch('http://localhost:3001/customer',{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name, details, gender, rating})
+            body: JSON.stringify({name, details, gender, rating, preview})
         })
 
         const data = response.json()

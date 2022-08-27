@@ -3,7 +3,7 @@ import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import SecurityIcon from "@mui/icons-material/Security";
-
+import { Rating } from "@mui/material";
 
 function SummaryApi() {
   const [pageSize, setPageSize] = useState(10);
@@ -15,7 +15,20 @@ function SummaryApi() {
 
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
-    { field: "name", headerName: "Name", width: 400 },
+    {
+      field: "preview",
+      headerName: "Avatar",
+      width: 100,
+      renderCell: (params) => (
+        <img
+          src={params.value}
+          alt=""
+          width={50}
+          style={{ marginLeft: "15px" }}
+        />
+      ),
+    },
+    { field: "name", headerName: "Name", width: 200 },
     { field: "details", headerName: "Details", width: 400 },
     {
       field: "gender",
@@ -25,7 +38,17 @@ function SummaryApi() {
       valueOptions: ["male", "female"],
       editable: true,
     },
-    { field: "rating", headerName: "rating", width: 100 },
+    {
+      field: "rating",
+      headerName: "rating",
+      width: 150,
+      renderCell: (params) => (
+        <Rating
+          value={params.value}
+          readOnly 
+        />
+      ),
+    },
     {
       field: "actions",
       headerName: "Action",
@@ -40,8 +63,7 @@ function SummaryApi() {
         <GridActionsCellItem
           icon={<SecurityIcon />}
           label="Toggle Admin"
-          onClick={() => {
-          }}
+          onClick={() => {}}
           showInMenu
         />,
         <GridActionsCellItem
@@ -60,6 +82,8 @@ function SummaryApi() {
       .then((data) => setTableData(data));
   }, []);
 
+  const categories = [...new Set(tableData.map((bill) => bill.preview))];
+  console.log(categories);
   return (
     <div style={{ height: 656, width: "100%" }}>
       <DataGrid
