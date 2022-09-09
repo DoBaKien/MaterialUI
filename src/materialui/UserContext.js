@@ -4,6 +4,7 @@ const UserContext = createContext()
 
 export const UserProvider =({children})=>{
     const [customers, setCustomers] = useState('')
+    const [books, setBooks] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,8 +33,21 @@ export const UserProvider =({children})=>{
         setCustomers(customers.filter((customer)=> customer.id !== id))
     } 
 
+    const addBook = async({name, details, selected, rating, pic})=>{
+        const response= await fetch('http://localhost:3001/books',{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({name, details, selected, rating, pic})
+        })
+
+        const data = response.json()
+        setBooks([data,...customers])
+    }
+
     return(
-        <UserContext.Provider value={{customers, deleteCustomer, createCustomer}}  >
+        <UserContext.Provider value={{customers, deleteCustomer, createCustomer, addBook, books}}  >
             {children}
         </UserContext.Provider>
     )

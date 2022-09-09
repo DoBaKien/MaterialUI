@@ -82,8 +82,7 @@ function SummaryApi() {
       .then((data) => setTableData(data));
   }, []);
 
-  const categories = [...new Set(tableData.map((bill) => bill.preview))];
-  console.log(categories);
+
   return (
     <div style={{ height: 656, width: "100%" }}>
       <DataGrid

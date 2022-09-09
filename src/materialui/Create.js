@@ -45,10 +45,7 @@ function Create() {
     setPreview(view);
   };
 
-  useEffect(() => {
-    
-  }, [preview]);
-
+  useEffect(() => {}, [preview]);
 
   return (
     <Container style={{ padding: "20px" }}>
@@ -56,15 +53,26 @@ function Create() {
         Create a new member
       </Typography>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <div style={{float: "left", marginRight:"200px", marginLeft:"200px"}} >
-        <Avatar
-          width={300}
-          height={300}
-          onClose={onClose}
-          onCrop={onCrop}
-          src={null}
-        /></div>
-         {preview && <img src={preview} alt="" style={{marginTop:"80px"}}  width={150} height={150}/>}
+        <div
+          style={{ float: "left", marginRight: "200px", marginLeft: "200px" }}
+        >
+          <Avatar
+            width={300}
+            height={300}
+            onClose={onClose}
+            onCrop={onCrop}
+            src={null}
+          />
+        </div>
+        {preview && (
+          <img
+            src={preview}
+            alt=""
+            style={{ marginTop: "80px" }}
+            width={150}
+            height={150}
+          />
+        )}
         <Box pb={2}>
           <TextField
             label="Name"
