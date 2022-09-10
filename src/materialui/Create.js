@@ -62,6 +62,7 @@ function Create() {
             onClose={onClose}
             onCrop={onCrop}
             src={null}
+            label="Choose avatar"
           />
         </div>
         {preview && (

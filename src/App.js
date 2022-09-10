@@ -16,6 +16,8 @@ import UploadAvatar from "./img/UploadAvatar";
 import AddBook from "./materialui/AddBook";
 import ListBook from "./materialui/ListBook";
 import ImgCus from "./img/ImgCus";
+import IconBee from "./img/image/logo.png"
+
 function App() {
   const { Header, Footer, Sider, Content } = Layout;
   const menuItems = [
@@ -90,7 +92,9 @@ function App() {
     <UserProvider>
       <div>
         <Layout>
-          <Header> </Header>
+          <Header>
+            <img alt="" src={IconBee} width="250px" height="50px" style={{left:0}}/>
+          </Header>
           <Layout>
             <Sider>
               <Menu items={menuItems} />

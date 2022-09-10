@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Rating } from "@mui/material";
+import { Rating, Tooltip } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function ListBook() {
@@ -23,14 +23,42 @@ function ListBook() {
         <img src={params.value} alt="" height={100} width={80} />
       ),
     },
-    { field: "name", headerName: "Name", width: 300 },
+    { field: "name", headerName: "Name", width: 150,  renderCell: (params) => (
+      <textarea
+        disabled
+        value={params.value}
+        rows="6"
+        cols="90"
+        style={{ border: "none", resize: "none", textAlign:"center", paddingTop:"60%" }}
+      ></textarea>
+    ), },
+    {
+      field: "selected",
+      headerName: "Geners",
+      width: 200,
+      renderCell: (params) => (
+        <textarea
+          disabled
+          value={params.value}
+          rows="6"
+          cols="90"
+          style={{ border: "none", resize: "none", textAlign:"center", paddingTop:"50%" }}
+        ></textarea>
+      ),
+    },
     {
       field: "details",
       headerName: "Details",
-      width: 600,
+      width: 500,
       height: 200,
       renderCell: (params) => (
-        <textarea disabled value={params.value} rows="6" cols="90" style={{border: "none", resize:"none"}}></textarea>
+        <textarea
+          disabled
+          value={params.value}
+          rows="6"
+          cols="90"
+          style={{ border: "none", resize: "none" }}
+        ></textarea>
       ),
     },
     {
@@ -45,10 +73,16 @@ function ListBook() {
       type: "actions",
       width: 80,
       getActions: (params) => [
+        <Tooltip
+        title="Delete"
+        placement="left"
+      >
         <GridActionsCellItem
           icon={<DeleteIcon />}
+          label="Delete"
           onClick={() => deleteCustomer(params.id)}
-        />,
+        />
+      </Tooltip>,
         <GridActionsCellItem icon={<VisibilityIcon />} onClick={() => {}} />,
       ],
     },

@@ -8,7 +8,10 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { useTheme } from "@mui/material/styles";
 import Container from "@mui/material/Container";
@@ -59,24 +62,21 @@ function AddBook() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name && details) {
-      addBook({ name, details,selected, rating, pic });
+      addBook({ name, details, selected, rating, pic });
       swal("Success!", "You have create successfully!", "success");
       document.getElementById("myForm").reset();
+      setPic("");
     }
     if (name === "") setNameError(true);
     if (details === "") setDetailError(true);
   };
 
-  
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      typeof value === "string" ? value.split(",") : value
-    );
-    setSelected(value)
-   
+    setPersonName(typeof value === "string" ? value.split(",") : value);
+    setSelected(value);
   };
 
   const onChangeImg = (e) => {
@@ -91,7 +91,7 @@ function AddBook() {
       onLoad(reader.result);
     };
   };
-  
+
   const onLoad = (fileString) => {
     setPic(fileString);
   };
@@ -101,11 +101,25 @@ function AddBook() {
       <Typography variant="h3" align="center" gutterBottom>
         Create a new book
       </Typography>
-      <form id="myForm"noValidate autoComplete="off" onSubmit={handleSubmit}>
-      <div>
-        <input type="file" onChange={onChangeImg} />
-      {pic && <img alt="" src={pic} width="20%" height="300px" ></img>}
-    </div>
+      <form id="myForm" noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <div style={{ marginBottom: "30px" }}>
+          <IconButton
+            style={{
+              background: "none",
+              color: "black",
+            }}
+            color="primary"
+            aria-label="upload picture"
+            component="label"
+          >
+            <input hidden accept="image/*" type="file" onChange={onChangeImg} />
+            <Tooltip title="Choose Image" placement="left">
+              <PhotoCamera fontSize="large" />
+            </Tooltip>
+          </IconButton>
+          {pic && <img alt="" src={pic} width="20%" height="300px"></img>}
+        </div>
+
         <Box pb={2}>
           <TextField
             style={{ marginBottom: "20px" }}
@@ -117,7 +131,7 @@ function AddBook() {
           />
           <FormControl fullWidth>
             <InputLabel id="demo-multiple-chip-label">Genre</InputLabel>
-            <Select 
+            <Select
               fullWidth
               labelId="demo-multiple-chip-label"
               id="demo-multiple-chip"
@@ -146,7 +160,7 @@ function AddBook() {
             </Select>
           </FormControl>
           <TextField
-            style={{marginTop:"20px", marginBottom:"20px"}}
+            style={{ marginTop: "20px", marginBottom: "20px" }}
             label="Detail"
             variant="standard"
             fullWidth

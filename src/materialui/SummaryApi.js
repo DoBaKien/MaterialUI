@@ -3,7 +3,7 @@ import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import SecurityIcon from "@mui/icons-material/Security";
-import { Rating } from "@mui/material";
+import { Rating, Tooltip } from "@mui/material";
 
 function SummaryApi() {
   const [pageSize, setPageSize] = useState(10);
@@ -42,12 +42,7 @@ function SummaryApi() {
       field: "rating",
       headerName: "rating",
       width: 150,
-      renderCell: (params) => (
-        <Rating
-          value={params.value}
-          readOnly 
-        />
-      ),
+      renderCell: (params) => <Rating value={params.value} readOnly />,
     },
     {
       field: "actions",
@@ -55,11 +50,16 @@ function SummaryApi() {
       type: "actions",
       width: 80,
       getActions: (params) => [
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={() => deleteCustomer(params.id)}
-        />,
+        <Tooltip
+          title="Delete"
+          placement="left"
+        >
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={() => deleteCustomer(params.id)}
+          />
+        </Tooltip>,
         <GridActionsCellItem
           icon={<SecurityIcon />}
           label="Toggle Admin"
@@ -81,7 +81,6 @@ function SummaryApi() {
       .then((data) => data.json())
       .then((data) => setTableData(data));
   }, []);
-
 
   return (
     <div style={{ height: 656, width: "100%" }}>
