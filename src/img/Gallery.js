@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import ArrowForwardIosTwoToneIcon from '@mui/icons-material/ArrowForwardIosTwoTone';
-import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
-import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
+import ArrowForwardIosTwoToneIcon from "@mui/icons-material/ArrowForwardIosTwoTone";
+import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
+import ArrowBackIosTwoToneIcon from "@mui/icons-material/ArrowBackIosTwoTone";
 import Img1 from "./image/1.jpg";
 import Img2 from "./image/2.png";
 import Img3 from "./image/3.png";
@@ -78,8 +78,19 @@ const Gallery = () => {
     }
   };
 
+  const [widths, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
 
-  let a= window.innerWidth-200
+    return () => {
+      window.removeEventListener("scroll", handleResize);
+    };
+  });
+
+  let a = widths - 200;
   return (
     <div>
       {data.imgSrc && (
@@ -99,15 +110,34 @@ const Gallery = () => {
             onClick={() => {
               imgAction();
             }}
-            style={{ position: "absolute", top: 5, right: 15, background:"black", border:"none"}}
+            style={{
+              position: "absolute",
+              top: 5,
+              right: 15,
+              background: "black",
+              border: "none",
+            }}
           >
-            <DisabledByDefaultIcon fontSize="large" style={{color:"white"}}></DisabledByDefaultIcon>
+            <DisabledByDefaultIcon
+              fontSize="large"
+              style={{ color: "white" }}
+            ></DisabledByDefaultIcon>
           </button>
+
           <button
             onClick={() => imgAction("pre-img")}
-            style={{ left: 10, position: "absolute", height:"90%", background:"black", border:"none"}}
+            style={{
+              left: 10,
+              position: "absolute",
+              height: "90%",
+              background: "black",
+              border: "none",
+            }}
           >
-            <ArrowBackIosTwoToneIcon fontSize="large" style={{color:"white"}}></ArrowBackIosTwoToneIcon>
+            <ArrowBackIosTwoToneIcon
+              fontSize="large"
+              style={{ color: "white" }}
+            ></ArrowBackIosTwoToneIcon>
           </button>
           <img
             alt=""
@@ -116,9 +146,18 @@ const Gallery = () => {
           />
           <button
             onClick={() => imgAction("next-img")}
-            style={{ right: 10, position: "absolute", height:"90%", background:"black" }}
+            style={{
+              right: 10,
+              position: "absolute",
+              height: "90%",
+              background: "black",
+              border: "none"
+            }}
           >
-            <ArrowForwardIosTwoToneIcon fontSize="large" style={{color:"white"}}></ArrowForwardIosTwoToneIcon>
+            <ArrowForwardIosTwoToneIcon
+              fontSize="large"
+              style={{ color: "white" }}
+            ></ArrowForwardIosTwoToneIcon>
           </button>
         </div>
       )}

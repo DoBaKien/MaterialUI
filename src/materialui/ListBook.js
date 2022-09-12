@@ -11,7 +11,7 @@ function ListBook() {
     await fetch(`http://localhost:3001/books/${id}`, { method: "DELETE" });
     setTableData(tableData.filter((customer) => customer.id !== id));
   };
-
+  
   const columns = [
     { field: "id", headerName: "ID", width: 50 },
     {

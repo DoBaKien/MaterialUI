@@ -16,8 +16,11 @@ import UploadAvatar from "./img/UploadAvatar";
 import AddBook from "./materialui/AddBook";
 import ListBook from "./materialui/ListBook";
 import ImgCus from "./img/ImgCus";
-import IconBee from "./img/image/logo.png"
+import IconBee from "./img/image/logo.png";
 
+import Circle from "./statistics/Circle";
+import ColumnDemo from "./statistics/ColumnDemo";
+import LineDemo from "./statistics/LineDemo";
 function App() {
   const { Header, Footer, Sider, Content } = Layout;
   const menuItems = [
@@ -74,35 +77,58 @@ function App() {
       ],
     },
     {
-      label: 'Book',
-      key: 'book',
+      label: "Book",
+      key: "book",
       children: [
-        { 
-          label:( <Link to="/addbook">Add Book</Link>),
-          key: 'addbook' 
+        {
+          label: <Link to="/addbook">Add Book</Link>,
+          key: "addbook",
         },
-        { 
-          label:( <Link to="/listbook">List Book</Link>),
-          key: 'listbook' 
+        {
+          label: <Link to="/listbook">List Book</Link>,
+          key: "listbook",
         },
       ],
-  },
+    },
+    {
+      key: "chart",
+      label: "Chart",
+      children: [
+        {
+          label: <Link to="/circle">Circle</Link>,
+          key: "circle",
+        },
+        {
+          label: <Link to="/column">Column</Link>,
+          key: "column",
+        },
+        {
+          label: <Link to="/line">Line</Link>,
+          key: "line",
+        },
+      ],
+    },
   ];
   return (
     <UserProvider>
       <div>
         <Layout>
           <Header>
-            <img alt="" src={IconBee} width="250px" height="50px" style={{left:0}}/>
+            <img
+              alt=""
+              src={IconBee}
+              width="250px"
+              height="50px"
+              style={{ left: 0 }}
+            />
           </Header>
           <Layout>
             <Sider>
               <Menu items={menuItems} />
             </Sider>
             <Content>
-              {" "}
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home />} />        
                 <Route path="/content" element={<Contents />} />
                 <Route path="/create" element={<Create />} />
                 <Route path="/homeM" element={<HomeMUI />} />
@@ -115,6 +141,9 @@ function App() {
                 <Route path="/avatar" element={<UploadAvatar />} />
                 <Route path="/addbook" element={<AddBook />} />
                 <Route path="/gallery" element={<ImgCus />} />
+                <Route path="/circle" element={<Circle />} />
+                <Route path="/column" element={<ColumnDemo />} />
+                <Route path="/line" element={<LineDemo/>} />
               </Routes>
             </Content>
           </Layout>

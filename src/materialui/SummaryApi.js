@@ -13,8 +13,29 @@ function SummaryApi() {
     setTableData(tableData.filter((customer) => customer.id !== id));
   };
 
+  const [widths, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleResize);
+    };
+  });
+
+  let widthid= widths-1400
+  let widthname= widths-1300
+  let witdhdetail= widths-1300
+  if(widthname<80){
+    widthname=80;
+  }
+  if(witdhdetail<80){
+    witdhdetail=80;
+  }
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
+    { field: "id", headerName: "ID", width: widthid },
     {
       field: "preview",
       headerName: "Avatar",
@@ -28,8 +49,8 @@ function SummaryApi() {
         />
       ),
     },
-    { field: "name", headerName: "Name", width: 200 },
-    { field: "details", headerName: "Details", width: 400 },
+    { field: "name", headerName: "Name", width: widthname },
+    { field: "details", headerName: "Details", width: witdhdetail },
     {
       field: "gender",
       headerName: "gender",
@@ -83,7 +104,10 @@ function SummaryApi() {
   }, []);
 
   return (
-    <div style={{ height: 656, width: "100%" }}>
+    <div style={{ height: 600, width: "100%" }}>
+      <>id {widthid}</><br/>
+      <>name {widthname}</><br/>
+      <>detail {witdhdetail}</>
       <DataGrid
         rows={tableData}
         columns={columns}
