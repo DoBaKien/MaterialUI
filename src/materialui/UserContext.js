@@ -28,6 +28,7 @@ export const UserProvider =({children})=>{
         setCustomers([data,...customers])
     }
 
+
     const deleteCustomer = async(id)=>{
         await fetch(`http://localhost:3001/customer/${id}`, {method: 'DELETE'})
         setCustomers(customers.filter((customer)=> customer.id !== id))

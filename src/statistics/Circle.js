@@ -30,7 +30,6 @@ function Circle() {
     radius: 0.75,
     label: {
       type: "spider",
-      labelHeight: 50,
       content: "{name}\n{percentage}",
     },
     interactions: [
@@ -46,7 +45,7 @@ function Circle() {
     <div>
       <h2 style={{textAlign:"center"}}>Lợi nhuận Apple Q2 2022</h2>
       <div style={{width:"100%"}}>
-        <Pie {...config} />
+        <Pie {...config}/>
       </div>
     </div>
   );

@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Rating, Tooltip } from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-
+import { Button, Rating, Tooltip } from "@mui/material";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 function ListBook() {
   const [pageSize, setPageSize] = useState(10);
 
@@ -11,7 +10,7 @@ function ListBook() {
     await fetch(`http://localhost:3001/books/${id}`, { method: "DELETE" });
     setTableData(tableData.filter((customer) => customer.id !== id));
   };
-  
+
   const columns = [
     { field: "id", headerName: "ID", width: 50 },
     {
@@ -23,15 +22,25 @@ function ListBook() {
         <img src={params.value} alt="" height={100} width={80} />
       ),
     },
-    { field: "name", headerName: "Name", width: 150,  renderCell: (params) => (
-      <textarea
-        disabled
-        value={params.value}
-        rows="6"
-        cols="90"
-        style={{ border: "none", resize: "none", textAlign:"center", paddingTop:"60%" }}
-      ></textarea>
-    ), },
+    {
+      field: "name",
+      headerName: "Name",
+      width: 150,
+      renderCell: (params) => (
+        <textarea
+          disabled
+          value={params.value}
+          rows="6"
+          cols="90"
+          style={{
+            border: "none",
+            resize: "none",
+            textAlign: "center",
+            paddingTop: "60%",
+          }}
+        ></textarea>
+      ),
+    },
     {
       field: "selected",
       headerName: "Geners",
@@ -42,7 +51,12 @@ function ListBook() {
           value={params.value}
           rows="6"
           cols="90"
-          style={{ border: "none", resize: "none", textAlign:"center", paddingTop:"50%" }}
+          style={{
+            border: "none",
+            resize: "none",
+            textAlign: "center",
+            paddingTop: "50%",
+          }}
         ></textarea>
       ),
     },
@@ -69,21 +83,37 @@ function ListBook() {
     },
     {
       field: "actions",
-      headerName: "Action",
+      headerName: "Edit",
       type: "actions",
-      width: 80,
+      width: 120,
       getActions: (params) => [
-        <Tooltip
-        title="Delete"
-        placement="left"
-      >
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={() => deleteCustomer(params.id)}
-        />
-      </Tooltip>,
-        <GridActionsCellItem icon={<VisibilityIcon />} onClick={() => {}} />,
+        <Tooltip title="Edit" placement="left">
+          <Button
+            startIcon={<ModeEditIcon />}
+            color="success"
+            variant="outlined"
+          >
+            Edit
+          </Button>
+        </Tooltip>,
+      ],
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
+      type: "actions",
+      width: 120,
+      getActions: (params) => [
+        <Tooltip title="Delete" placement="left">
+          <Button
+            startIcon={<DeleteIcon />}
+            color="error"
+            variant="outlined"
+            onClick={() => deleteCustomer(params.id)}
+          >
+            Delete
+          </Button>
+        </Tooltip>,
       ],
     },
   ];

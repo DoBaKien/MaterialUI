@@ -1,16 +1,21 @@
 import { useState, useEffect } from "react";
-import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import SecurityIcon from "@mui/icons-material/Security";
-import { Rating, Tooltip } from "@mui/material";
+import { Button, Rating, Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 function SummaryApi() {
   const [pageSize, setPageSize] = useState(10);
+  const navigate = useNavigate();
 
   const deleteCustomer = async (id) => {
     await fetch(`http://localhost:3001/customer/${id}`, { method: "DELETE" });
     setTableData(tableData.filter((customer) => customer.id !== id));
+  };
+
+  const UpdateUser = (id) => {
+    navigate(`/useredit/${id}`);
   };
 
   const [widths, setWidth] = useState(window.innerWidth);
@@ -25,14 +30,14 @@ function SummaryApi() {
     };
   });
 
-  let widthid= widths-1400
-  let widthname= widths-1300
-  let witdhdetail= widths-1300
-  if(widthname<80){
-    widthname=80;
+  let widthid = widths - 1400;
+  let widthname = widths - 1300;
+  let witdhdetail = widths - 1300;
+  if (widthname < 80) {
+    widthname = 80;
   }
-  if(witdhdetail<80){
-    witdhdetail=80;
+  if (witdhdetail < 80) {
+    witdhdetail = 80;
   }
   const columns = [
     { field: "id", headerName: "ID", width: widthid },
@@ -53,7 +58,7 @@ function SummaryApi() {
     { field: "details", headerName: "Details", width: witdhdetail },
     {
       field: "gender",
-      headerName: "gender",
+      headerName: "Gender",
       width: 150,
       type: "singleSelect",
       valueOptions: ["male", "female"],
@@ -61,40 +66,50 @@ function SummaryApi() {
     },
     {
       field: "rating",
-      headerName: "rating",
+      headerName: "Rating",
       width: 150,
       renderCell: (params) => <Rating value={params.value} readOnly />,
     },
     {
       field: "actions",
-      headerName: "Action",
+      headerName: "Edit",
       type: "actions",
-      width: 80,
+      width: 120,
       getActions: (params) => [
-        <Tooltip
-          title="Delete"
-          placement="left"
-        >
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={() => deleteCustomer(params.id)}
-          />
+        <Tooltip title="Edit" placement="left">
+          <Button
+            startIcon={<ModeEditIcon />}
+            color="success"
+            variant="outlined"
+            onClick={() => UpdateUser(params.id)}
+          >
+            Edit
+          </Button>
         </Tooltip>,
-        <GridActionsCellItem
-          icon={<SecurityIcon />}
-          label="Toggle Admin"
-          onClick={() => {}}
-          showInMenu
-        />,
-        <GridActionsCellItem
-          icon={<FileCopyIcon />}
-          label="Duplicate User"
-          showInMenu
-        />,
+      ],
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
+      type: "actions",
+      width: 120,
+      getActions: (params) => [
+        <Tooltip title="Delete" placement="left">
+          <Button
+            startIcon={<DeleteIcon />}
+            color="error"
+            variant="outlined"
+            onClick={() => deleteCustomer(params.id)}
+          >
+            Delete
+          </Button>
+        </Tooltip>,
       ],
     },
   ];
+  const handleOnCellClick = (params) => {
+    navigate(`/profile/${params.id}`);
+  };
 
   const [tableData, setTableData] = useState([]);
   useEffect(() => {
@@ -104,24 +119,29 @@ function SummaryApi() {
   }, []);
 
   return (
-    <div style={{ height: 600, width: "100%" }}>
-      <>id {widthid}</><br/>
-      <>name {widthname}</><br/>
-      <>detail {witdhdetail}</>
-      <DataGrid
-        rows={tableData}
-        columns={columns}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[5, 10, 20]}
-        pageSize={pageSize}
-        checkboxSelection
-        components={{
-          Toolbar: GridToolbar,
-        }}
-        initialState={{
-          ...tableData.initialState,
-        }}
-      />
+    <div style={{ height: 670, width: "100%" }}>
+      {/* <>id {widthid}</>
+      <br />
+      <>name {widthname}</>
+      <br />
+      <>detail {witdhdetail}</> */}
+      <div style={{ height: 600 }}>
+        <DataGrid
+          rows={tableData}
+          columns={columns}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 20]}
+          pageSize={pageSize}
+          checkboxSelection
+          components={{
+            Toolbar: GridToolbar,
+          }}
+          initialState={{
+            ...tableData.initialState,
+          }}
+          onCellDoubleClick={handleOnCellClick}
+        />
+      </div>
     </div>
   );
 }
