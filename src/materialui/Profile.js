@@ -92,7 +92,7 @@ function Profile() {
     <>
       <div
         className="info"
-        style={{ width: widthcoverphoto, border: "1px black solid" }}
+        style={{ width: widthcoverphoto}}
       >
         <img src={Img11} alt="" width="100%" height="300px" />
 
